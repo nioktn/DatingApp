@@ -8,5 +8,6 @@ namespace DatingApp.API.Persistance
         public ValuesContext(DbContextOptions options) : base (options) { }
                 
         public DbSet<Value> Values { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
