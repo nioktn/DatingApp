@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatingApp.API.Migrations
 {
-    [DbContext(typeof(ValuesContext))]
+    [DbContext(typeof(DataContext))]
     partial class ValuesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -1,3 +1,10 @@
-<p *ngFor="let value of values">
-  {{ value.id }}, {{ value.name }}
-</p>
+<table>
+  <tr>
+    <th>Value_Id</th>
+    <th>Value_Name</th>
+  </tr>
+  <tr *ngFor="let value of values">
+    <td>{{value.id}}</td>
+    <td>{{value.name}}</td>
+  </tr>
+</table>

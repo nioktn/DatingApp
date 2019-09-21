@@ -16,15 +16,16 @@ namespace DatingApp.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _repo;
+        private readonly IAuthRepository _authRepo;
         private readonly IConfiguration _config;
 
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public AuthController(IAuthRepository authRepo, IConfiguration config)
         {
             _config = config;
-            _repo = repo;
+            _authRepo = authRepo;
         }
 
+        // DTO - Data Transfer Object
         [HttpPost("register")]
         public async Task<IActionResult> Register(/*[FromBody]*/ UserForRegisterDto userForRegisterDto)
         {
@@ -34,12 +35,12 @@ namespace DatingApp.API.Controllers
 
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDto.Username))
+            if (await _authRepo.UserExists(userForRegisterDto.Username))
                 return BadRequest("User with such username already exists");
 
             var userToCreate = new User { Username = userForRegisterDto.Username };
 
-            var createdUser = _repo.Register(userToCreate, userForRegisterDto.Password);
+            var createdUser = await _authRepo.Register(userToCreate, userForRegisterDto.Password);
 
             //TODO: implement returning of CreatedAtRoute result
             return StatusCode(201);
@@ -48,17 +49,18 @@ namespace DatingApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+            var userFromRepo = await _authRepo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
                 return Unauthorized();
 
+            // some claims to store in the token
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Username)
             };
-
+            
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                 _config.GetSection("AppSettings:Token").Value));
 
