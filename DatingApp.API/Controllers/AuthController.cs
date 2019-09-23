@@ -1,14 +1,14 @@
-using System.Threading.Tasks;
-using DatingApp.API.Models;
-using DatingApp.API.Persistance;
-using Microsoft.AspNetCore.Mvc;
-using DatingApp.API.Dtos;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using DatingApp.API.Controllers.Resources;
+using DatingApp.API.Core;
+using DatingApp.API.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp.API.Controllers
 {
@@ -27,7 +27,7 @@ namespace DatingApp.API.Controllers
 
         // DTO - Data Transfer Object
         [HttpPost("register")]
-        public async Task<IActionResult> Register(/*[FromBody]*/ UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> Register(/*[FromBody]*/ UserRegisterResource userForRegisterDto)
         {
             //TODO: validate request
             // if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
+        public async Task<IActionResult> Login(UserLoginResource userForLoginDto)
         {
             var userFromRepo = await _authRepo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 

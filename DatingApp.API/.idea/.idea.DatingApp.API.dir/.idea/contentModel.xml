@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Nikita\.Rider2019.2\system\extResources" t="IncludeRecursive" />
@@ -10,24 +10,33 @@
       <e p="bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
         <e p="AuthController.cs" t="Include" />
-        <e p="ValuesController.cs" t="Include" />
+        <e p="NotesController.cs" t="Include" />
+        <e p="Resources" t="Include">
+          <e p="NoteResource.cs" t="Include" />
+          <e p="SaveNoteResource.cs" t="Include" />
+          <e p="UserLoginResource.cs" t="Include" />
+          <e p="UserRegisterResource.cs" t="Include" />
+          <e p="UserResource.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Core" t="Include">
+        <e p="IAuthRepository.cs" t="Include" />
+        <e p="INoteRepository.cs" t="Include" />
+        <e p="IUnitOfWork.cs" t="Include" />
+        <e p="Models" t="Include">
+          <e p="Note.cs" t="Include" />
+          <e p="User.cs" t="Include" />
+        </e>
       </e>
       <e p="DatingApp.API.csproj" t="IncludeRecursive" />
       <e p="DatingApp.db" t="Include" />
-      <e p="Dtos" t="Include">
-        <e p="UserForLoginDto.cs" t="Include" />
-        <e p="UserForRegisterDto.cs" t="Include" />
+      <e p="Mapping" t="Include">
+        <e p="MappingProfile.cs" t="Include" />
       </e>
       <e p="Migrations" t="Include">
-        <e p="20190819110240_InitialMigration.cs" t="Include" />
-        <e p="20190819110240_InitialMigration.Designer.cs" t="Include" />
-        <e p="20190820080920_AddedUserEntity.cs" t="Include" />
-        <e p="20190820080920_AddedUserEntity.Designer.cs" t="Include" />
-        <e p="ValuesContextModelSnapshot.cs" t="Include" />
-      </e>
-      <e p="Models" t="Include">
-        <e p="User.cs" t="Include" />
-        <e p="Value.cs" t="Include" />
+        <e p="20190922103209_Init_migration.cs" t="Include" />
+        <e p="20190922103209_Init_migration.Designer.cs" t="Include" />
+        <e p="DataContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
@@ -40,7 +49,8 @@
       <e p="Persistance" t="Include">
         <e p="AuthRepository.cs" t="Include" />
         <e p="DataContext.cs" t="Include" />
-        <e p="IAuthRepository.cs" t="Include" />
+        <e p="NoteRepository.cs" t="Include" />
+        <e p="UnitOfWork.cs" t="Include" />
       </e>
       <e p="Program.cs" t="Include" />
       <e p="Properties" t="Include">
