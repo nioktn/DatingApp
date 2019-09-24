@@ -81,7 +81,7 @@ namespace DatingApp.API.Controllers
             if (note == null)
                 return BadRequest($"Note with Id = {id} is not found");
 
-            _repository.Remove(id);
+            _repository.Remove(note);
             return Ok(id);
         }
     }

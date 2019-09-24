@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div *ngIf="!registerMode" style="text-align: center">
+    <h1>Share your notes</h1>
+    <p class="lead">Come on in to view your notes... All you need to do is sign up!</p>
+    <div class="text-center">
+      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">Register</button>
+      <button class="btn btn-info btn-lg" (click)="getValues()">Learn more</button>
+    </div>
+  </div>
+
+  <div *ngIf="registerMode" class="container">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="triggered">
+  
+    <table>
+      <tr>
+        <th>Id</th>  
+        <th>Title</th>  
+        <th>Text</th>  
+        <th>CreatedDate</th>  
+      </tr>
+      <tr *ngFor="let value of values">
+        <td>{{value.id}}</td>
+        <td>{{value.title}}</td>
+        <td>{{value.text}}</td>
+        <td>{{value.createdDate}}</td>
+      </tr>  
+    </table>
+  </div>
+</div>
