@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Controllers.Resources;
@@ -15,6 +17,7 @@ namespace DatingApp.API.Controllers
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly INoteRepository _repository;
+        private readonly IAuthRepository _authRepository;
 
         public NotesController(IMapper mapper, IUnitOfWork unitOfWork, INoteRepository repository)
         {
@@ -33,6 +36,23 @@ namespace DatingApp.API.Controllers
 
             var noteResource = _mapper.Map<Note, NoteResource>(note);
             return Ok(noteResource);
+        }
+        // GET ??
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllNotesOfUser(int userId)
+        {
+            var notes = await _repository.GetAllNotesOfUser(userId);
+            if (notes == null)
+                return NotFound($"No {_authRepository.GetUserById(userId).Result.Username} notes were found.");
+
+            ICollection<NoteResource> noteResources = null;
+            foreach (var note in notes)
+            {
+                noteResources.Add(_mapper.Map<Note, NoteResource>(note));
+            }
+            // If you are able to rewrite it using LINQ, please do it.
+            
+            return Ok(noteResources); // Can we work with the collections?
         }
 
         // POST api/notes

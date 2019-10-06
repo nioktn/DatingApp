@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DatingApp.API.Models;
 
 namespace DatingApp.API.Core
@@ -8,5 +9,6 @@ namespace DatingApp.API.Core
         Task<Note> GetNote(int id);
         Task Add(Note note);
         void Remove(Note note);
+        Task<ICollection<Note>> GetAllNotesOfUser(int id); // it is one of Litvinov's requirement
     }
 }

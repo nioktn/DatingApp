@@ -69,5 +69,10 @@ namespace DatingApp.API.Persistence
         {
             return await _context.Users.AnyAsync(u => u.Username == username);
         }
+
+        public async Task<User> GetUserById(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id); // I think it is OK
+        }
     }
 }
