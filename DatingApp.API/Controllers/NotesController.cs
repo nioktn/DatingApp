@@ -41,15 +41,8 @@ namespace DatingApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAllNotesOfUser(int userId)
         {
-            var notes = await _repository.GetAllNotesOfUser(userId);
-            if (notes == null)
-                return NotFound($"No {_authRepository.GetUserById(userId).Result.Username} notes were found.");
-
-            ICollection<NoteResource> noteResources = null;
-            foreach (var note in notes)
-            {
-                noteResources.Add(_mapper.Map<Note, NoteResource>(note));
-            }
+            
+            
             // If you are able to rewrite it using LINQ, please do it.
             
             return Ok(noteResources); // Can we work with the collections?
@@ -86,6 +79,7 @@ namespace DatingApp.API.Controllers
                 return BadRequest($"Note with Id = {id} is not found");
             
             _mapper.Map<SaveNoteResource, Note>(noteResource, note);
+            _repository.Update(note);
             await _unitOfWork.CompleteAsync();
             
             note = await _repository.GetNote(note.Id);

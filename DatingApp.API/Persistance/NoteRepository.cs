@@ -33,6 +33,11 @@ namespace DatingApp.API.Persistence
             _context.Notes.Remove(note); 
         }
 
+        public void Update(Note note)
+        {
+            _context.Notes.Update(note);
+        }
+
         public async Task<ICollection<Note>> GetAllNotesOfUser(int id)
         {
             //            return await _context.Notes.FindAsync(id);

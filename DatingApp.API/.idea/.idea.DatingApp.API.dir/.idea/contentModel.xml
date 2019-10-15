@@ -5,9 +5,31 @@
     <e p="C:\Users\Nikita\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_.19.00" t="ExcludeRecursive" />
     <e p="C:\Users\Nikita\source\repos\2019\Univ\ISTKM\DatingApp\DatingApp.API" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
+      <e p=".vs" t="Include">
+        <e p="DatingApp.API" t="Include">
+          <e p="DesignTimeBuild" t="Include">
+            <e p=".dtbcache" t="Include" />
+          </e>
+          <e p="v15" t="Include">
+            <e p=".suo" t="Include" />
+            <e p="Server" t="Include">
+              <e p="sqlite3" t="Include">
+                <e p="db.lock" t="Include" />
+                <e p="storage.ide" t="Include" />
+                <e p="storage.ide-shm" t="Include" />
+                <e p="storage.ide-wal" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+      </e>
       <e p="appsettings.Development.json" t="Include" />
       <e p="appsettings.json" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
+      <e p="BLL" t="Include">
+        <e p="INotesManager.cs" t="Include" />
+        <e p="NotesManager.cs" t="Include" />
+      </e>
       <e p="Controllers" t="Include">
         <e p="AuthController.cs" t="Include" />
         <e p="NotesController.cs" t="Include" />
