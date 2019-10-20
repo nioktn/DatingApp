@@ -38,15 +38,15 @@ namespace DatingApp.API.Controllers
             return Ok(noteResource);
         }
         // GET ??
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAllNotesOfUser(int userId)
-        {
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetAllNotesOfUser(int userId)
+        //{
             
             
-            // If you are able to rewrite it using LINQ, please do it.
+        //    // If you are able to rewrite it using LINQ, please do it.
             
-            return Ok(noteResources); // Can we work with the collections?
-        }
+        //    return Ok(noteResources); // Can we work with the collections?
+        //}
 
         // POST api/notes
         [HttpPost]

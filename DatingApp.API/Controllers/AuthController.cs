@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DatingApp.API.Controllers.Resources;
 using DatingApp.API.Core;
 using DatingApp.API.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -44,7 +45,7 @@ namespace DatingApp.API.Controllers
 
             //TODO: implement returning of CreatedAtRoute result
             return StatusCode(201);
-        }
+        } 
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginResource userForLoginDto)
