@@ -61,11 +61,11 @@ namespace DatingApp.API
             //.AddDefaultTokenProviders();
 
             services.AddEntityFrameworkSqlite()
-      .AddDbContext<AuthDbContext>();
+                .AddDbContext<AuthDbContext>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AuthDbContext>().
-                AddDefaultUI()
+                .AddEntityFrameworkStores<AuthDbContext>()
+                .AddDefaultUI()
                 .AddDefaultTokenProviders();
         }
 
@@ -86,7 +86,7 @@ namespace DatingApp.API
             app.UseCors(_ => _.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();
-            app.UseStaticFiles();
+            app.UseStaticFiles();// css, images, javascript
         }
     }
 }
