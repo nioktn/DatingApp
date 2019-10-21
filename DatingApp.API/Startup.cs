@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using AutoMapper;
+using DatingApp.API.BLL;
 using DatingApp.API.Core;
 using DatingApp.API.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,6 +32,7 @@ namespace DatingApp.API
             services.AddScoped<IAuthRepository, AuthRepository>(); // repo instance per request within a scope
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INoteRepository, NoteRepository>();
+            services.AddScoped<INotesManager, NotesManager>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();

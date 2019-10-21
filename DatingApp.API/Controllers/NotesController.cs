@@ -8,6 +8,7 @@ using DatingApp.API.Core;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using DatingApp.API.BLL;
 
 namespace DatingApp.API.Controllers
 {
@@ -16,21 +17,39 @@ namespace DatingApp.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly INoteRepository _repository;
+        private readonly INoteRepository _notesRepository;
         private readonly IAuthRepository _authRepository;
+        private readonly INotesManager _notesManager;
 
-        public NotesController(IMapper mapper, IUnitOfWork unitOfWork, INoteRepository repository)
+        public NotesController(IMapper mapper, IUnitOfWork unitOfWork, INoteRepository notesRepository, INotesManager notesManager)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _repository = repository;
+            _notesRepository = notesRepository;
+            _notesManager = notesManager;
         }
+
+        // GET api/notes/1
+        //[Route("translate")]
+        [HttpGet("translate/{id}")]
+        public async Task<IActionResult> TranslateNote(int id)
+        {
+            var note = await _notesRepository.GetNote(id);
+            if (note == null)
+                return NotFound($"Note with Id = {id} is not found");
+
+            var translatedNote = _notesManager.TranslateNote(note);
+
+            var noteResource = _mapper.Map<Note, NoteResource>(translatedNote);
+            return Ok(noteResource);
+        }
+
 
         // GET api/notes/1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetNote(int id)
         {
-            var note = await _repository.GetNote(id);
+            var note = await _notesRepository.GetNote(id);
             if (note == null)
                 return NotFound($"Note with Id = {id} is not found");
 
@@ -45,7 +64,7 @@ namespace DatingApp.API.Controllers
             
             // If you are able to rewrite it using LINQ, please do it.
             
-            return Ok(noteResources); // Can we work with the collections?
+            return Ok(); // Can we work with the collections?
         }
 
         // POST api/notes
@@ -58,10 +77,10 @@ namespace DatingApp.API.Controllers
             var note = _mapper.Map<SaveNoteResource, Note>(noteResource);
             note.CreatedDate = DateTime.Now;
 
-            await _repository.Add(note);
+            await _notesRepository.Add(note);
             await _unitOfWork.CompleteAsync();
 
-            note = await _repository.GetNote(note.Id);
+            note = await _notesRepository.GetNote(note.Id);
 
             var result = _mapper.Map<Note, NoteResource>(note);
             return CreatedAtRoute(RouteData, result);
@@ -74,15 +93,15 @@ namespace DatingApp.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var note = await _repository.GetNote(id);
+            var note = await _notesRepository.GetNote(id);
             if (note == null)
                 return BadRequest($"Note with Id = {id} is not found");
             
             _mapper.Map<SaveNoteResource, Note>(noteResource, note);
-            _repository.Update(note);
+            _notesRepository.Update(note);
             await _unitOfWork.CompleteAsync();
             
-            note = await _repository.GetNote(note.Id);
+            note = await _notesRepository.GetNote(note.Id);
             var result = _mapper.Map<Note, NoteResource>(note);
             return Ok(result);
         }
@@ -91,11 +110,11 @@ namespace DatingApp.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var note = await _repository.GetNote(id);
+            var note = await _notesRepository.GetNote(id);
             if (note == null)
                 return BadRequest($"Note with Id = {id} is not found");
 
-            _repository.Remove(note);
+            _notesRepository.Remove(note);
             return Ok(id);
         }
     }
