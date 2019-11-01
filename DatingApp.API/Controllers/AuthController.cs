@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Controllers.Resources;
 using DatingApp.API.Core;
 using DatingApp.API.Models;
@@ -18,11 +19,13 @@ namespace DatingApp.API.Controllers
     {
         private readonly IAuthRepository _authRepo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository authRepo, IConfiguration config)
+        public AuthController(IAuthRepository authRepo, IConfiguration config, IMapper mapper)
         {
             _config = config;
             _authRepo = authRepo;
+            _mapper = mapper;
         }
 
         // DTO - Data Transfer Object
@@ -43,7 +46,7 @@ namespace DatingApp.API.Controllers
             var createdUser = await _authRepo.Register(userToCreate, userForRegisterDto.Password);
 
             //TODO: implement returning of CreatedAtRoute result
-            return StatusCode(201);
+            return Created("", createdUser); //StatusCode(201);
         }
 
         [HttpPost("login")]

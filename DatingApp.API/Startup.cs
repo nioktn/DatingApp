@@ -33,6 +33,7 @@ namespace DatingApp.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddScoped<INotesManager, NotesManager>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();

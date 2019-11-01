@@ -17,9 +17,9 @@ namespace DatingApp.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly INoteRepository _notesRepository;
+        private readonly INoteRepository _notesRepository; // our notes repository
         private readonly IAuthRepository _authRepository;
-        private readonly INotesManager _notesManager;
+        private readonly INotesManager _notesManager; // our notes BLL
 
         public NotesController(IMapper mapper, IUnitOfWork unitOfWork, INoteRepository notesRepository, INotesManager notesManager)
         {
@@ -28,6 +28,7 @@ namespace DatingApp.API.Controllers
             _notesRepository = notesRepository;
             _notesManager = notesManager;
         }
+
 
         // GET api/notes/1
         //[Route("translate")]
@@ -56,16 +57,6 @@ namespace DatingApp.API.Controllers
             var noteResource = _mapper.Map<Note, NoteResource>(note);
             return Ok(noteResource);
         }
-        // GET ??
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAllNotesOfUser(int userId)
-        {
-            
-            
-            // If you are able to rewrite it using LINQ, please do it.
-            
-            return Ok(); // Can we work with the collections?
-        }
 
         // POST api/notes
         [HttpPost]
@@ -90,8 +81,8 @@ namespace DatingApp.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateNote(int id, SaveNoteResource noteResource)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            //if (!ModelState.IsValid)
+            //    return BadRequest(ModelState);
 
             var note = await _notesRepository.GetNote(id);
             if (note == null)
@@ -115,6 +106,7 @@ namespace DatingApp.API.Controllers
                 return BadRequest($"Note with Id = {id} is not found");
 
             _notesRepository.Remove(note);
+            await _unitOfWork.CompleteAsync();
             return Ok(id);
         }
     }
